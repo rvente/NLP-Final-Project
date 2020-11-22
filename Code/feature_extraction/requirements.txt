@@ -1,0 +1,4 @@
+Cython
+numpy
+spacy
+tensorflow<2.0
