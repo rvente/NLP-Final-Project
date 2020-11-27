@@ -5,8 +5,7 @@
 # Foundation, either version 3 of the License, or (at your option) any later
 # version.
 #
-# This program will convert a parse tree into a collections.Counter() of the
-# directed nested n-grams of the constituency parse tree.
+# This program will parse sentences 
 
 
 import unittest
@@ -48,5 +47,4 @@ if __name__ == '__main__':
     sent = list(doc.sents)[0]
     print(sent._.parse_string)
     print(sent._.labels)
-    print(list(sent._.children)[0])
     # unittest.main()

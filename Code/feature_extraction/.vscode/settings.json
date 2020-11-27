@@ -1,3 +1,6 @@
 {
-  "python.pythonPath": "/home/vente/repos/research/NLP-Final-Project/Code/feature_extraction/virtualenv/bin/python3.7"
+  "python.pythonPath": "virtualenv/bin/python",
+  "python.formatting.provider": "autopep8",
+  "python.linting.pylintEnabled": true,
+  "python.linting.enabled": true
 }
