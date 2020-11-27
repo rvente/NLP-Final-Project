@@ -23,8 +23,15 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import LinearSVC
 from sklearn.utils import shuffle
 
+from sample_parser import PathExtractor
+
+
 DATA_DIR_NAME = 'data/'
-DATA_FILE_NAME = "50Authors30DocsEach.csv"
+DATA_FILE_NAME = "50A30D.csv"
+# DATA_FILE_NAME = "100A50D.csv"
+DATA_FILE_NAME = "100A50D.xlsx"
+
+COL_LABELS = ["user_id", "review_contents"]
 
 
 def experiment(N_TRIALS, N_SPLITS, classifier, X, y):
@@ -43,15 +50,17 @@ def experiment(N_TRIALS, N_SPLITS, classifier, X, y):
 
 
 if __name__ == "__main__":
-    df = pd.read_csv(DATA_DIR_NAME+DATA_FILE_NAME)
-    ic(set(df))
-    assert(set(df) >= {'user_id', 'review_contents'})
+    df = pd.read_excel(DATA_DIR_NAME+DATA_FILE_NAME, names=COL_LABELS)
+    assert(set(df) == set(COL_LABELS))
     vectorizer = TfidfVectorizer()
     authors = df['user_id'].to_list()
     reviews = df['review_contents'].to_list()
     vectors = vectorizer.fit_transform(reviews)
+    print(df.head())
     ic(vectors[:10].toarray())
     # help(vectors)
+
+    benepar = PathExtractor()
 
     print(vectors.shape)
     X_train, X_test, y_train, y_test = train_test_split(
@@ -61,11 +70,9 @@ if __name__ == "__main__":
     predictions = svm.predict(X_test)
     print('svm', accuracy_score(y_test, predictions))
 
-    X_train = X_train.toarray()
-    X_test = X_test.toarray()
-    nb = GaussianNB()
-    nb.fit(X_train, y_train)
-    predictions = nb.predict(X_test)
-    print('NB', accuracy_score(y_test, predictions))
-
-    print(df.head())
+    # X_train = X_train.toarray()
+    # X_test = X_test.toarray()
+    # nb = GaussianNB(var_smoothing=1e-5)
+    # nb.fit(X_train, y_train)
+    # predictions = nb.predict(X_test)
+    # print('NB', accuracy_score(y_test, predictions))
