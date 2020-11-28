@@ -60,19 +60,4 @@ if __name__ == "__main__":
     ic(vectors[:10].toarray())
     # help(vectors)
 
-    # benepar = PathExtractor()
-
-    print(vectors.shape)
-    X_train, X_test, y_train, y_test = train_test_split(
-        vectors, authors, test_size=0.3, random_state=42)
-    # svm = LinearSVC()
-    # svm.fit(X_train, y_train)
-    # predictions = svm.predict(X_test)
-    # print('svm', accuracy_score(y_test, predictions))
-
-    X_train = X_train.toarray()
-    X_test = X_test.toarray()
-    nb = RandomForestClassifier()
-    nb.fit(X_train, y_train)
-    predictions = nb.predict(X_test)
-    print('NB', accuracy_score(y_test, predictions))
+    benepar = PathExtractor()

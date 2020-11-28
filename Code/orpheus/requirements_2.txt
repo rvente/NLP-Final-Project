@@ -3,5 +3,5 @@ benepar
 pandas
 icecream
 sklearn 
-pprint
+prettyprint
 sacred

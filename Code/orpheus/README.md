@@ -40,3 +40,22 @@ benepar.download('benepar_en')
 Expects excel file with one sheet and two columns: `author_id` and 
 
 type `make features` to generate features
+
+## Troubleshooting
+
+Problem:
+
+```
+ File "feature_extraction/sample_parser.py", line 47, in <module>
+    nlp = spacy.load('en')
+
+    ...
+
+    FileNotFoundError: [Errno 2] No such file or directory: '... Code/orpheus/virtualenv/lib/python3.7/site-packages/spacy/data/en/__init__.py'
+```
+Solution:
+
+python -m spacy link en_core_web_sm en --force
+
+https://github.com/explosion/spaCy/issues/2406
+

@@ -25,35 +25,55 @@ class PathExtractor():
         self.nlp = spacy.load('en')
         self.nlp.add_pipe(BeneparComponent('benepar_en'))
 
+    def peek(self, printable):
+      #print(printable)
+      return printable
+
     def extract_unipath(self, document):
         doc = self.nlp(document)
+        parse_paths = []
+        
+        def parse(span, fn):
+            children = list(span._.children)
+            for child in children:
+                parse(child, fn)
+            parse_paths.append( fn(span) )
+
         for sent in doc.sents:
-            print('c', sent._.parse_string)
-            print('c', sent._.labels)
+            parse(sent, lambda x: self.peek(x._.labels or (
+                # leaf nodes have no labels?? extract them from the string.
+                x._.parse_string.partition(" ")[0][1:], )))
+        return parse_paths
+
 
 
 if __name__ == '__main__':
-    nlp = spacy.load('en')
-    nlp.add_pipe(BeneparComponent('benepar_en'))
-    doc = nlp('The time for action is now. Its never too late to do something.')
-    print(list(doc.sents))
-    sent = list(doc.sents)[0]
-    print(sent._.parse_string)
-    print(sent._.labels)
+    # nlp = spacy.load('en')
+    # nlp.add_pipe(BeneparComponent('benepar_en'))
+    # doc = nlp('The time for action is now. Its never too late to do something.')
+    # print(list(doc.sents))
+    # sent = list(doc.sents)[0]
+    # print(sent._.parse_string)
+    # print(sent._.labels)
 
-    def parse(span, fn):
-        children = list(span._.children)
-        fn(span)
-        if not children:
-            return
-        for child in children:
-            parse(child, fn)
+    # def parse(span, fn):
+    #     children = list(span._.children)
+    #     fn(span)
+    #     if not children:
+    #         return
+    #     for child in children:
+    #         parse(child, fn)
 
-    parse(sent, lambda x: print(x._.labels or (
-        # leaf nodes have no labels?? extract them from the string.
-        x._.parse_string.partition(" ")[0][1:], )))
+    # parse(sent, lambda x: print(x._.labels or (
+    #     # leaf nodes have no labels?? extract them from the string.
+    #     x._.parse_string.partition(" ")[0][1:], )))
 
-    InteractiveConsole(locals=dict(globals(), **locals())
-                       ).interact(pformat(locals()), "Goodbye")
+    # InteractiveConsole(locals=dict(globals(), **locals())
+    #                    ).interact(pformat(locals()), "Goodbye")
+    path = PathExtractor()
+    r = path.extract_unipath("The time for action is now. It's never too late.")
 
-    # unittest.main()
+    try:
+        pprint(r)
+    except Exception as e:
+        print(e)
