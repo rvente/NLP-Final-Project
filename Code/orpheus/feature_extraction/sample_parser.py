@@ -50,28 +50,6 @@ class PathExtractor():
 
 
 if __name__ == '__main__':
-    # nlp = spacy.load('en')
-    # nlp.add_pipe(BeneparComponent('benepar_en'))
-    # doc = nlp('The time for action is now. Its never too late to do something.')
-    # print(list(doc.sents))
-    # sent = list(doc.sents)[0]
-    # print(sent._.parse_string)
-    # print(sent._.labels)
-
-    # def parse(span, fn):
-    #     children = list(span._.children)
-    #     fn(span)
-    #     if not children:
-    #         return
-    #     for child in children:
-    #         parse(child, fn)
-
-    # parse(sent, lambda x: print(x._.labels or (
-    #     # leaf nodes have no labels?? extract them from the string.
-    #     x._.parse_string.partition(" ")[0][1:], )))
-
-    # InteractiveConsole(locals=dict(globals(), **locals())
-    #                    ).interact(pformat(locals()), "Goodbye")
     path = PathExtractor()
     r = path.extract_unipath("The time for action is now. It's never too late.")
 
