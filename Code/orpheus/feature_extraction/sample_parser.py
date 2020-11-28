@@ -32,19 +32,18 @@ class PathExtractor():
     def extract_unipath(self, document):
         doc = self.nlp(document)
         
-        def parse(span, fn, appendable) -> 'List[str]':
+        def parse(span, fn) -> 'List[str]':
             children = list(span._.children)
             for child in children:
-                parse(child, fn, appendable)
-            appendable.append( fn(span) )
+                yield from parse(child, fn)
+            # appendable.append( fn(span) )
+            yield fn(span)
 
         by_sentence = []
         for sent in doc.sents:
-            v = []
-            parse(sent,
+            v = list(parse(sent,
                 # leaf nodes have no labels?? extract them from the string.
-                  lambda x: x._.labels or (x._.parse_string.partition(" ")[0][1:], ),
-                  v) # parse mutates v
+                  lambda x: x._.labels or (x._.parse_string.partition(" ")[0][1:], )))
             by_sentence.append(v)
         # reduce surrounding tuples so we have List[str]
         return by_sentence
