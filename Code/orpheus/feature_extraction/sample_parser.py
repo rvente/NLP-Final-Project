@@ -29,20 +29,20 @@ class PathExtractor():
       #print(printable)
       return printable
 
-    def extract_unipath(self, document):
+    def extract_unipath(self, document) -> 'List[List[Tuple[str]]]':
         doc = self.nlp(document)
         
-        def parse(span, fn) -> 'List[str]':
+        # visit each node of the tree, yielding results of calling fn on the span
+        def parse(span, fn) -> 'Tuple[str]':
             children = list(span._.children)
             for child in children:
                 yield from parse(child, fn)
-            # appendable.append( fn(span) )
             yield fn(span)
 
         by_sentence = []
         for sent in doc.sents:
             v = list(parse(sent,
-                # leaf nodes have no labels?? extract them from the string.
+                  # leaf nodes have no labels?? extract them from the string.
                   lambda x: x._.labels or (x._.parse_string.partition(" ")[0][1:], )))
             by_sentence.append(v)
         # reduce surrounding tuples so we have List[str]
