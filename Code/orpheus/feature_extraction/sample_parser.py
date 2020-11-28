@@ -33,18 +33,18 @@ class PathExtractor():
         doc = self.nlp(document)
         parse_paths = []
         
-        def parse(span, fn):
+        def parse(span, fn) -> 'List[str]':
             children = list(span._.children)
             for child in children:
                 parse(child, fn)
             parse_paths.append( fn(span) )
 
         for sent in doc.sents:
-            parse(sent, lambda x: self.peek(x._.labels or (
+            parse(sent, lambda x: x._.labels or (
                 # leaf nodes have no labels?? extract them from the string.
-                x._.parse_string.partition(" ")[0][1:], )))
-        return parse_paths
-
+                x._.parse_string.partition(" ")[0][1:], ))
+        # reduce surrounding tuples so we have List[str]
+        return [path[0] for path in parse_paths]
 
 
 if __name__ == '__main__':
