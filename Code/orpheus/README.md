@@ -1,8 +1,9 @@
+## Installing
+
 pip install -r requirements.txt
 
 sudo apt-get install python3.7-dev # for python3.x installs
 requires virtualenv as well
-
 
 ```sh
 virtualenv --python=/usr/bin/python3.7 ./virtualenv
@@ -16,7 +17,9 @@ deactivate
 by under python3. You should also see the (virtualenv) before your usual termanl
 prompt.
 
-now run `pip install -r requirements.txt` and follow that with `pip install -r requrements_2.txt`
+Now run `pip install -r requirements.txt` and follow that with `pip install -r
+requrements_2.txt`. These are separate to avoid a dependency cycle experienced
+in testing.
 
 * python -m spacy download en
 
@@ -29,3 +32,11 @@ nltk.download('punkt')
 import benepar
 benepar.download('benepar_en')
 ```
+
+`mkdir logs`
+
+## Running
+
+Expects excel file with one sheet and two columns: `author_id` and 
+
+type `make features` to generate features
