@@ -29,7 +29,7 @@ class PathExtractor():
       #print(printable)
       return printable
 
-    def extract_doc_tree(self, document) -> 'List[List[Tuple[str]]]':
+    def extract_doc_tree(self, document) -> 'Spacy.Doc':
         doc = self.nlp(document)
         return doc
 

@@ -27,10 +27,9 @@ from sample_parser import PathExtractor
 
 
 DATA_DIR_NAME = 'data/'
-DATA_FILE_NAME = "50A30D.csv"
+# DATA_FILE_NAME = "50A30D.csv"
 # DATA_FILE_NAME = "100A50D.csv"
 DATA_FILE_NAME = "100A50D.xlsx"
-
 COL_LABELS = ["user_id", "review_contents"]
 
 
@@ -50,14 +49,25 @@ def experiment(N_TRIALS, N_SPLITS, classifier, X, y):
 
 
 if __name__ == "__main__":
-    df = pd.read_excel(DATA_DIR_NAME+DATA_FILE_NAME, names=COL_LABELS)
-    assert(set(df) == set(COL_LABELS))
-    vectorizer = TfidfVectorizer()
-    authors = df['user_id'].to_list()
-    reviews = df['review_contents'].to_list()
-    vectors = vectorizer.fit_transform(reviews)
-    print(df.head())
-    ic(vectors[:10].toarray())
-    # help(vectors)
+    # read file with two cols, "user_id" and "review_contents"
 
-    benepar = PathExtractor()
+    df = pd.read_excel(DATA_DIR_NAME+DATA_FILE_NAME, names=COL_LABELS)
+    extractor = PathExtractor()
+    # for index, row in df.iterrows():
+    #     doc = extractor.extract_doc_tree(row['review_contents'])
+    #     df['bin'] = doc
+        
+    # for row in dataframe, pathextractor(row['review_contents']) into new row['bin']
+
+    df['documents'] = df['review_contents'].map(extractor.extract_doc_tree)
+    try:
+        df.to_excel("anything.xlsx")
+    except Exception as e:
+        print(e)
+        
+    try:
+        df.to_pickle("anything.pkl")
+    except Exception as e:
+        print(e)
+
+    assert(set(df) >= set(COL_LABELS))
