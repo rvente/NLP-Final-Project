@@ -1,4 +1,4 @@
-# Copyright (C) 2020 Ralph "Blake Vente
+# Copyright (C) 2020 Ralph "Blake" Vente and Anthony Chen
 #
 # orpheus is free software: you can redistribute it and/or modify it under the
 # terms of the GNU General Public License as published by the Free Software
@@ -23,7 +23,7 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import LinearSVC
 from sklearn.utils import shuffle
 
-from sample_parser import PathExtractor
+from instance_parser import PathExtractor
 
 
 DATA_DIR_NAME = 'data/'
@@ -50,23 +50,15 @@ def experiment(N_TRIALS, N_SPLITS, classifier, X, y):
 
 if __name__ == "__main__":
     # read file with two cols, "user_id" and "review_contents"
-
     df = pd.read_excel(DATA_DIR_NAME+DATA_FILE_NAME, names=COL_LABELS)
-    extractor = PathExtractor()
-    # for index, row in df.iterrows():
-    #     doc = extractor.extract_doc_tree(row['review_contents'])
-    #     df['bin'] = doc
-        
-    # for row in dataframe, pathextractor(row['review_contents']) into new row['bin']
 
+    extractor = PathExtractor()
+
+    # for row in dataframe, pathextractor(row['review_contents']) into new row['bin']
     df['documents'] = df['review_contents'].map(extractor.extract_doc_tree)
+
     try:
-        df.to_excel("anything.xlsx")
-    except Exception as e:
-        print(e)
-        
-    try:
-        df.to_pickle("anything.pkl")
+        df.to_pickle("100A50D_with_doc.pkl")
     except Exception as e:
         print(e)
 
