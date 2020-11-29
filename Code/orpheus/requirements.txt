@@ -2,3 +2,5 @@ Cython
 numpy
 spacy
 tensorflow<2.0
+openpyxl
+xlrd
