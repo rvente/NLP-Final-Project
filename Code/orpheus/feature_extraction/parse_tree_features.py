@@ -5,8 +5,8 @@
 # Foundation, either version 3 of the License, or (at your option) any later
 # version.
 #
-# This program will convert a parse tree into a collections.Counter() of the
-# directed nested n-grams of the constituency parse tree.
+# This program will take a df of user_id, review_contents and add another
+# columnd containing the 
 
 from collections import Counter
 

@@ -5,24 +5,39 @@
 # Foundation, either version 3 of the License, or (at your option) any later
 # version.
 #
-# This program will convert a parse tree into a collections.Counter() of the
-# directed nested n-grams of the constituency parse tree.
+# This program loads pickles and adds a 'pos_tags' column.
 
 
 import pandas as pd
-from instance_parser import extract_unipath, span_visitor, unigram_getter
+
+from instance_parser import span_visitor, unigram_getter
+
+DATASET = 'small.pkl'
+DATASET = 'data/100A50D_with_doc.pkl'
+CTR = 1
+
+def doc_to_pos_string(doc: 'Spacy.Doc') -> 'str':
+    """traverse, get unigrams, flatten into space separated pos_tags"""
+    global CTR
+    CTR += 1
+    print(CTR/5000)
+    return " ".join(" ".join(span_visitor(sent, unigram_getter)) for sent in doc.sents)
+
+
+def pos_col_append(df: 'pd.DataFrame[documents]') -> 'MUTATES':
+    """MUTATE df with POS column; MUTATION for efficiency"""
+    df['pos_tags'] = df['documents'].apply(doc_to_pos_string)
 
 
 if __name__ == "__main__":
     try:
-        # df = pd.read_pickle('data/100A50D_with_doc.pkl')
-        df = pd.read_pickle('small.pkl')
-
-        doc0: 'Spacy.Doc' = df['documents'][0]
-        print(doc0)
-        for sent in doc0.sents:
-          parse = list(span_visitor(sent, unigram_getter))
-          print(parse)
+        print("read start")
+        df = pd.read_pickle(DATASET)
+        print("read done")
+        pos_col_append(df)
+        df.drop(columns=['documents'], inplace=True)
+        print(df)
+        df.to_pickle("data/100A50D_POS.pkl")
 
     except Exception as e:
         print(e)

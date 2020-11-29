@@ -29,7 +29,6 @@ def extract_unipath(doc: 'Spacy.Doc') -> 'List[List[Tuple[str]]]':
         yield fn(span)
 
     by_sentence = []
-    # leaf nodes have no labels?? extract them from the string.
     for sent in doc.sents:
         v = list(parse(sent, unigram_getter))
         by_sentence.append(v)
@@ -40,12 +39,16 @@ def extract_unipath(doc: 'Spacy.Doc') -> 'List[List[Tuple[str]]]':
 def span_visitor(span: 'Spacy.Span', fn: 'Callable') -> 'Tuple[str]':
     """ visit all nodes in tree, applying fn on every node"""
     children = list(span._.children)
+    yield fn(span)
     for child in children:
         yield from span_visitor(child, fn)
-    yield fn(span)
+
 
 def unigram_getter(x: 'Spacy.Span'):
-    return x._.labels or (x._.parse_string.partition(" ")[0][1:], )
+    """ ret POS from a span, if span leaf, take POS from base str"""
+    # leaf nodes have no labels?? extract them from the string.
+    return (x._.labels or (x._.parse_string.partition(" ")[0][1:], ))[0]
+
 
 class PathExtractor():
     def __init__(self):
