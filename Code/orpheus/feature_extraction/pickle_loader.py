@@ -10,18 +10,19 @@
 
 
 import pandas as pd
-from instance_parser import extract_unipath
-
+from instance_parser import extract_unipath, span_visitor, unigram_getter
 
 
 if __name__ == "__main__":
     try:
+        # df = pd.read_pickle('data/100A50D_with_doc.pkl')
         df = pd.read_pickle('small.pkl')
 
         doc0: 'Spacy.Doc' = df['documents'][0]
         print(doc0)
-        parse = extract_unipath(doc0)
-        print(parse)
+        for sent in doc0.sents:
+          parse = list(span_visitor(sent, unigram_getter))
+          print(parse)
 
     except Exception as e:
         print(e)

@@ -59,7 +59,8 @@ if __name__ == "__main__":
     df['documents'] = df['review_contents'].map(extractor.extract_doc_tree)
 
     try:
-        df.to_hdf("100A50D_with_doc.h5", key='df')
+        # df.to_hdf("100A50D_with_doc.h5", key='df')
+        df.to_pickle("")
     except Exception as e:
         print(e)
 

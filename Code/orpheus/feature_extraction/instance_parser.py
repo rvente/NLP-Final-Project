@@ -1,4 +1,4 @@
-# Copyright (C) 2020 Ralph "Blake" Vente 
+# Copyright (C) 2020 Ralph "Blake" Vente
 #
 # orpheus is free software: you can redistribute it and/or modify it under the
 # terms of the GNU General Public License as published by the Free Software
@@ -18,8 +18,9 @@ from pprint import pprint, pformat
 import tensorflow as tf
 tf.gfile = tf.io.gfile
 
+
 def extract_unipath(doc: 'Spacy.Doc') -> 'List[List[Tuple[str]]]':
-    
+
     # visit each node of the tree, yielding results of calling fn on the span
     def parse(span, fn) -> 'Tuple[str]':
         children = list(span._.children)
@@ -28,14 +29,23 @@ def extract_unipath(doc: 'Spacy.Doc') -> 'List[List[Tuple[str]]]':
         yield fn(span)
 
     by_sentence = []
+    # leaf nodes have no labels?? extract them from the string.
     for sent in doc.sents:
-        v = list(parse(sent,
-                # leaf nodes have no labels?? extract them from the string.
-                lambda x: x._.labels or (x._.parse_string.partition(" ")[0][1:], )))
+        v = list(parse(sent, unigram_getter))
         by_sentence.append(v)
     # reduce surrounding tuples so we have List[str]
     return by_sentence
 
+
+def span_visitor(span: 'Spacy.Span', fn: 'Callable') -> 'Tuple[str]':
+    """ visit all nodes in tree, applying fn on every node"""
+    children = list(span._.children)
+    for child in children:
+        yield from span_visitor(child, fn)
+    yield fn(span)
+
+def unigram_getter(x: 'Spacy.Span'):
+    return x._.labels or (x._.parse_string.partition(" ")[0][1:], )
 
 class PathExtractor():
     def __init__(self):
