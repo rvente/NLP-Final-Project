@@ -16,7 +16,6 @@ from code import InteractiveConsole
 from pprint import pprint, pformat
 
 import tensorflow as tf
-print(tf.__version__)
 tf.gfile = tf.io.gfile
 
 def extract_unipath(doc: 'Spacy.Doc') -> 'List[List[Tuple[str]]]':

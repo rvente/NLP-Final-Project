@@ -55,10 +55,11 @@ if __name__ == "__main__":
     extractor = PathExtractor()
 
     # for row in dataframe, pathextractor(row['review_contents']) into new row['bin']
+    df = df.head(10)
     df['documents'] = df['review_contents'].map(extractor.extract_doc_tree)
 
     try:
-        df.to_pickle("100A50D_with_doc.pkl")
+        df.to_hdf("100A50D_with_doc.h5", key='df')
     except Exception as e:
         print(e)
 
