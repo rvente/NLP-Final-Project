@@ -2,6 +2,8 @@ spacy
 benepar
 pandas
 icecream
-sklearn 
+sklearn
 prettyprint
 sacred
+Mako
+xlrd

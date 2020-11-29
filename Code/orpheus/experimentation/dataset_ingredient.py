@@ -16,6 +16,11 @@ def cfg():
 @auth100docs50.capture
 def load_data(filename, col_labels):
     df = pd.read_excel(filename, names=col_labels)
+    # we van vary ngram_range to extract bigrams
+    # we can get the vectorizer.stop_words_ bc
+    #    occured in too many documents (max_df)
+    #    occured in too few documents (min_df)
+    #    cut off by feature selection (max_features)
     vectorizer = TfidfVectorizer()
     reviews = df['review_contents'].to_list()
     authors = df['user_id'].to_list()

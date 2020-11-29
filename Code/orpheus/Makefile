@@ -1,6 +1,14 @@
 BASEDIR?= logs
 LOG_TRACK=--file_storage=$(BASEDIR)
 
+venv:
+	@echo "switching to virtual environment"
+	source virtualenv/bin/activate
+
+install: venv
+	@echo "Installing dependencies"
+
+
 analysis: classifiers
 	@echo "done"
 
