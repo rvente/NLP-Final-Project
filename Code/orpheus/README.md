@@ -43,7 +43,7 @@ in testing.
 
 * https://pypi.org/project/benepar/
 
-
+python3.7
 ```py
 import nltk
 nltk.download('punkt')
@@ -55,7 +55,7 @@ benepar.download('benepar_en')
 
 ## Running
 
-Expects excel file with one sheet and two columns: `author_id` and 
+Expects excel file with one sheet and two columns: `author_id` and `review_contents`
 
 type `make features` to generate features
 
