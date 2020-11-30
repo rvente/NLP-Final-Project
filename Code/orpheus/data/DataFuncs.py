@@ -72,7 +72,6 @@ def GetSample(f, a, samplesize, reviews_each):
     #converting to excel file
     #check slice for bad authors
     slice = []
-    print(final)
     for key in w.keys():
         slice.append([key,w[key][0]])
 

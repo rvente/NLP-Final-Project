@@ -7,7 +7,7 @@
 from DataFuncs import CountDocs, Prune, GetSample
 
 #This has not been run on a PC with less than 49GB ram. Usage is >36GB. Maybe go to DataFuncs.py and decrease all chunksizes
-#Timed run, default settings:
+#Timed run, default settings: 17min
 
 #count how many docs each author has
 authorcount = CountDocs('yelp_academic_dataset_review.json')
