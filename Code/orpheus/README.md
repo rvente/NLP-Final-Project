@@ -57,7 +57,7 @@ benepar.download('benepar_en')
 `mkdir logs`
 
 ## Making Dataset
-Make sure you have the Yelp dataset, specifically yelp_academic_dataset_review.json in Data, then run Run_all.py from orpheus.
+Make sure you have the Yelp dataset, specifically yelp_academic_dataset_review.json in Data, then run Python3.7 Data/Run_all.py from orpheus.
 
 ## Running
 
