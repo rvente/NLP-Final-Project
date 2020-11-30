@@ -7,3 +7,4 @@ prettyprint
 sacred
 Mako
 xlrd
+tqdm
