@@ -1,3 +1,6 @@
+## Requiremtnt for Computing Dataset
+minimum ~40 GB RAM, has never been computed with less than 49 GB
+
 ## Installing
 
 pip install -r requirements.txt
@@ -52,6 +55,9 @@ benepar.download('benepar_en')
 ```
 
 `mkdir logs`
+
+## Making Dataset
+Make sure you have the Yelp dataset, specifically yelp_academic_dataset_review.json in Data, then run Python3.7 Data/Run_all.py from orpheus.
 
 ## Running
 
