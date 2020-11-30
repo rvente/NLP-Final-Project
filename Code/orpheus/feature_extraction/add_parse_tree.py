@@ -25,8 +25,9 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import LinearSVC
 from sklearn.utils import shuffle
 
-from instance_parser import PathExtractor
 from tqdm import tqdm
+import spacy
+from benepar.spacy_plugin import BeneparComponent
 tqdm.pandas()
 
 
@@ -36,21 +37,14 @@ DATA_DIR_NAME = 'data/'
 DATA_FILE_NAME = "100A50D.xlsx"
 COL_LABELS = ["user_id", "review_contents"]
 
+class PathExtractor():
+    def __init__(self):
+        self.nlp = spacy.load('en')
+        self.nlp.add_pipe(BeneparComponent('benepar_en'))
 
-def experiment(N_TRIALS, N_SPLITS, classifier, X, y):
-    score_distribution = list()
-    for _ in range(N_TRIALS):
-        kf = KFold(n_splits=N_SPLITS, shuffle=True)
-        for train_index, test_index in kf.split(X, y):
-            X_train, X_test = X.iloc[train_index], X.iloc[test_index]
-            y_train, y_test = y.iloc[train_index], y.iloc[test_index]
-
-            classifier.fit(X_train, y_train)
-            accuracy = classifier.score(X_test, y_test)
-            score_distribution.append(accuracy)
-
-    return score_distribution
-
+    def extract_doc_tree(self, document: 'String') -> 'Spacy.Doc':
+        doc = self.nlp(document)
+        return doc
 
 if __name__ == "__main__":
     # read file with two cols, "user_id" and "review_contents"

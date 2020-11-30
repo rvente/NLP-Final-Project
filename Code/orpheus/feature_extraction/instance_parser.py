@@ -11,8 +11,8 @@
 import unittest
 
 import spacy
-import pandas as pd
 from benepar.spacy_plugin import BeneparComponent
+import pandas as pd
 from code import InteractiveConsole
 from pprint import pprint, pformat
 
@@ -43,6 +43,7 @@ def doc_to_pos_string(doc: 'Spacy.Doc') -> 'str':
 
     return " ".join(" ".join(span_visitor(sent, unigram_getter)) for sent in doc.sents)
 
+
 def span_visitor(span: 'Spacy.Span', fn: 'Callable') -> 'Tuple[str]':
     """ visit all nodes in tree, applying fn on every node"""
     children = list(span._.children)
@@ -51,20 +52,24 @@ def span_visitor(span: 'Spacy.Span', fn: 'Callable') -> 'Tuple[str]':
         yield from span_visitor(child, fn)
 
 
-def unigram_getter(x: 'Spacy.Span'):
+def unigram_getter(x: 'Spacy.Span') -> 'str':
     """ ret POS from a span, if span leaf, take POS from base str"""
     # leaf nodes have no labels?? extract them from the string.
     return (x._.labels or (x._.parse_string.partition(" ")[0][1:], ))[0]
 
 
-class PathExtractor():
-    def __init__(self):
-        self.nlp = spacy.load('en')
-        self.nlp.add_pipe(BeneparComponent('benepar_en'))
+def span_to_pos(x: 'Spacy.Span') -> 'str':
+    """ ret POS from a span, if span leaf, take POS from base str"""
+    # leaf nodes have no labels?? extract them from the string.
+    return (x._.labels or (x._.parse_string.partition(" ")[0][1:], ))[0]
 
-    def extract_doc_tree(self, document: 'String') -> 'Spacy.Doc':
-        doc = self.nlp(document)
-        return doc
+
+def l1_path_getter(x: 'Spacy.Span') -> 'str str ... str':
+    """ unigram getter but returns paths of length 1 as strings"""
+    # leaf nodes have no labels?? extract them from the string.
+    x_pos_tag = span_to_pos(x)
+    x_children = x._.children
+    return " ".join(x_pos_tag+"↓"+span_to_pos(child) for child in x_children)
 
 
 if __name__ == '__main__':
@@ -77,3 +82,5 @@ if __name__ == '__main__':
     doc: 'Spacy.Doc' = df['documents'][0]
     s = list(span_visitor(list(doc.sents)[0], unigram_getter))
     print(s)
+    t = list(span_visitor(list(doc.sents)[0], l1_path_getter))
+    print(t)
