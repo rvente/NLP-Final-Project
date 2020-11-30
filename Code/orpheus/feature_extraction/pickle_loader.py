@@ -12,8 +12,8 @@ import pandas as pd
 
 from instance_parser import span_visitor, unigram_getter
 
-DATASET = 'small.pkl'
-DATASET = 'data/100A50D_with_doc.pkl'
+DATASET = 'Sample_POS.pkl'
+DATASET = 'data/Sample_POS.pkl'
 CTR = 1
 
 def doc_to_pos_string(doc: 'Spacy.Doc') -> 'str':
@@ -37,7 +37,7 @@ if __name__ == "__main__":
         pos_col_append(df)
         df.drop(columns=['documents'], inplace=True)
         print(df)
-        df.to_pickle("data/100A50D_POS.pkl")
+        df.to_pickle("data/Sample_POS.pkl")
 
     except Exception as e:
         print(e)

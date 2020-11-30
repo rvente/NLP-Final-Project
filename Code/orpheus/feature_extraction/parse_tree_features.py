@@ -6,7 +6,7 @@
 # version.
 #
 # This program will take a df of user_id, review_contents and add another
-# columnd containing the 
+# columnd containing the
 
 from collections import Counter
 
@@ -29,7 +29,7 @@ from instance_parser import PathExtractor
 DATA_DIR_NAME = 'data/'
 # DATA_FILE_NAME = "50A30D.csv"
 # DATA_FILE_NAME = "100A50D.csv"
-DATA_FILE_NAME = "100A50D.xlsx"
+DATA_FILE_NAME = "Sample.xlsx"
 COL_LABELS = ["user_id", "review_contents"]
 
 
@@ -50,17 +50,15 @@ def experiment(N_TRIALS, N_SPLITS, classifier, X, y):
 
 if __name__ == "__main__":
     # read file with two cols, "user_id" and "review_contents"
-    df = pd.read_excel(DATA_DIR_NAME+DATA_FILE_NAME, names=COL_LABELS)
+    df = pd.read_excel(DATA_DIR_NAME+DATA_FILE_NAME, names=COL_LABELS, header = None)
 
     extractor = PathExtractor()
 
-    # for row in dataframe, pathextractor(row['review_contents']) into new row['bin']
-    df = df.head(10)
     df['documents'] = df['review_contents'].map(extractor.extract_doc_tree)
 
     try:
         # df.to_hdf("100A50D_with_doc.h5", key='df')
-        df.to_pickle("100A50D_with_doc.pkl")
+        df.to_pickle("Sample_POS.pkl")
     except Exception as e:
         print(e)
 
