@@ -11,30 +11,37 @@
 import unittest
 
 import spacy
+import pandas as pd
 from benepar.spacy_plugin import BeneparComponent
 from code import InteractiveConsole
 from pprint import pprint, pformat
+
 
 import tensorflow as tf
 tf.gfile = tf.io.gfile
 
 
-def extract_unipath(doc: 'Spacy.Doc') -> 'List[List[Tuple[str]]]':
+# TODO: ensure there are no references and remove this function
+# def extract_unipath(doc: 'Spacy.Doc') -> 'List[List[Tuple[str]]]':
 
-    # visit each node of the tree, yielding results of calling fn on the span
-    def parse(span, fn) -> 'Tuple[str]':
-        children = list(span._.children)
-        for child in children:
-            yield from parse(child, fn)
-        yield fn(span)
+#     # visit each node of the tree, yielding results of calling fn on the span
+#     def parse(span, fn) -> 'Tuple[str]':
+#         children = list(span._.children)
+#         for child in children:
+#             yield from parse(child, fn)
+#         yield fn(span)
 
-    by_sentence = []
-    for sent in doc.sents:
-        v = list(parse(sent, unigram_getter))
-        by_sentence.append(v)
-    # reduce surrounding tuples so we have List[str]
-    return by_sentence
+#     by_sentence = []
+#     for sent in doc.sents:
+#         v = list(parse(sent, unigram_getter))
+#         by_sentence.append(v)
+#     # reduce surrounding tuples so we have List[str]
+#     return by_sentence
 
+def doc_to_pos_string(doc: 'Spacy.Doc') -> 'str':
+    """traverse, get unigrams, flatten into space separated pos_tags"""
+
+    return " ".join(" ".join(span_visitor(sent, unigram_getter)) for sent in doc.sents)
 
 def span_visitor(span: 'Spacy.Span', fn: 'Callable') -> 'Tuple[str]':
     """ visit all nodes in tree, applying fn on every node"""
@@ -61,12 +68,12 @@ class PathExtractor():
 
 
 if __name__ == '__main__':
-    test_str = "The time for action is now. It's never too late."
-    path = PathExtractor()
-    doc: 'Spacy.Doc' = path.extract_doc_tree(test_str)
-    r = extract_unipath(doc)
+    # for unit tests, we import a small mock dataset
+    # pd.Dataframe['user_id','review_contents','documents']
 
-    try:
-        pprint(r)
-    except Exception as e:
-        print(e)
+    DATASET_BASENAME = 'data/small'
+    DATASET = f'{DATASET_BASENAME}_with_doc.pkl'
+    df = pd.read_pickle(DATASET)
+    doc: 'Spacy.Doc' = df['documents'][0]
+    s = list(span_visitor(list(doc.sents)[0], unigram_getter))
+    print(s)

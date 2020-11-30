@@ -10,7 +10,7 @@
 # thread of a desktop Intel i5 4690K @ 3.5 GHz (a worst-case).
 
 
-from instance_parser import span_visitor, unigram_getter
+from instance_parser import span_visitor, unigram_getter, doc_to_pos_string
 import pandas as pd
 from tqdm import tqdm
 tqdm.pandas()
@@ -20,13 +20,6 @@ DATASET_BASENAME = 'data/small'
 DATASET = f'{DATASET_BASENAME}_with_doc.pkl'
 DATASET_OUTNAME = f'{DATASET_BASENAME}__doc+pos.pkl'
 # DATASET = 'data/100A50D_with_doc.pkl'
-
-
-def doc_to_pos_string(doc: 'Spacy.Doc') -> 'str':
-    """traverse, get unigrams, flatten into space separated pos_tags"""
-
-    return " ".join(" ".join(span_visitor(sent, unigram_getter)) for sent in doc.sents)
-
 
 def pos_col_append(df: 'pd.DataFrame[documents]') -> 'MUTATES':
     """MUTATE df with POS column; MUTATION for efficiency"""
