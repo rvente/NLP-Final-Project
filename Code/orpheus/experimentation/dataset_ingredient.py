@@ -8,7 +8,7 @@ auth100docs50 = Ingredient('dataset')
 
 
 @auth100docs50.config
-def a100_d50_cfg():
+def cfg():
     filename = './data/100A50D.xlsx'
     col_labels = ["user_id", "review_contents"]
 
