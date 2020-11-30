@@ -53,7 +53,7 @@ if __name__ == "__main__":
     df = pd.read_excel(DATA_DIR_NAME+DATA_FILE_NAME, names=COL_LABELS, header = None)
 
     extractor = PathExtractor()
-
+    df = df.astype('string')
     df['documents'] = df['review_contents'].map(extractor.extract_doc_tree)
 
     try:
