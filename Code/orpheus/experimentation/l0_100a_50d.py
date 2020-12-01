@@ -16,7 +16,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics import accuracy_score, confusion_matrix, f1_score
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import MultinomialNB
-from sklearn.svm import LinearSVC
+from sklearn.svm import LinearSVC, SVC
 # from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier, GradientBoostingClassifier
 from sklearn.neural_network import MLPClassifier
@@ -53,12 +53,10 @@ def load_data(filename, min_doc_freq, feature_column, name):
     return X_train, X_test, y_train, y_test
 
 
+
 @ex.command
-def svc(_log, name):
-    X_train, X_test, y_train, y_test = load_data()
-    svm = LinearSVC()
-    svm.fit(X_train, y_train)
-    y_pred = svm.predict(X_test)
+def log_stats(_log, clf, X_test, y_test, name, params):
+    y_pred = clf.predict(X_test)
     accuracy = accuracy_score(y_test, y_pred)
     confusion = confusion_matrix(y_test, y_pred)
     f1 = f1_score(y_test, y_pred, average="weighted")
@@ -67,8 +65,25 @@ def svc(_log, name):
     ex.log_scalar("test.f1_score", f1)
     _log.info(f"{name}")
     _log.info(f"acc={accuracy}, f1={f1}")
+    _log.info(params)
     return accuracy
 
+@ex.command
+def svc(_log, name):
+    X_train, X_test, y_train, y_test = load_data()
+    mx_iter = 10
+    params = {'max_iter' : mx_iter , 'verbose':0}
+    clf = LinearSVC(**params)
+    clf.fit(X_train, y_train)
+    return log_stats(_log, clf, X_test, y_test, name, params)
+
+@ex.command
+def kernelsvc(_log, name):
+    X_train, X_test, y_train, y_test = load_data()
+    params = {'max_iter' : 1000 , 'verbose':0, 'kernel': 'rbf', 'C': 50.0}
+    clf = SVC(**params)
+    clf.fit(X_train, y_train)
+    return log_stats(_log, clf, X_test, y_test, name, params)
 
 @ex.command
 def MultiNomNB(_log, name):
