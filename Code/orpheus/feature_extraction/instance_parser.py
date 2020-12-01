@@ -11,6 +11,7 @@
 from code import InteractiveConsole
 from pprint import pformat, pprint
 from typing import Callable, Generator, Tuple
+from collections import Counter
 
 import pandas as pd
 import spacy
@@ -74,7 +75,7 @@ def l1_path_getter(x: Span) -> SpaceDelimitedTokens:
     return (pos_nested_bigram_getter(x) + " " + upper_bigram).strip()
 
 
-def path_getter(x: Span, length: 'int') -> SpaceDelimitedTokens:
+def path_getter(x: Span, length: 'int', origin: Span) -> SpaceDelimitedTokens:
     """returns all POS paths of given from node x as strings"""
     x_par = x._.parent
     x_children = x._.children
@@ -90,8 +91,9 @@ def path_getter(x: Span, length: 'int') -> SpaceDelimitedTokens:
       return "↓PAD"*max(length,1)
 
     subsequent_nodes = [("↑", x_par)] + [("↓", child) for child in x_children]
+    non_origin = [(_,node) for _,node in subsequent_nodes if node != origin]
 
-    return " ".join(x_pos_tag+l+path_getter(x_prime, length-1) for l, x_prime in subsequent_nodes)
+    return " ".join(x_pos_tag+l+path_getter(x_prime, length-1, x) for l, x_prime in non_origin)
 
 
 if __name__ == '__main__':
@@ -103,10 +105,11 @@ if __name__ == '__main__':
     DATASET = f'{DATASET_BASENAME}_with_doc.pkl'
     df = pd.read_pickle(DATASET)
     doc: 'Doc' = df['documents'][0]
-    l2_getter = lambda x: path_getter(x,2)
-    for getter in [span_to_pos, l1_path_getter, l2_getter]:
-        print(getter)
-        print(doc_visitor(doc, getter))
+    l2_getter = lambda x: path_getter(x,2,x)
+    # for getter in [span_to_pos, l1_path_getter, l2_getter]:
+    #     print(getter)
+    #     print(doc_visitor(doc, getter))
 
     # print(doc)
     print(doc_visitor(doc, l2_getter))
+    print(Counter(doc_visitor(doc, l2_getter).split()))
