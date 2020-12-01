@@ -6,7 +6,7 @@
 # version.
 #
 # This program loads pickles and adds a 'pos_tags' column derived from the
-# 'spacy.Docs' in the dataframe. It takes about 0.05 seconds per review on one
+# 'Docs' in the dataframe. It takes about 0.05 seconds per review on one
 # thread of a desktop Intel i5 4690K @ 3.5 GHz (a worst-case).
 
 

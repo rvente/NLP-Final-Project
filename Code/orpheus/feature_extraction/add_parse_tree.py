@@ -6,7 +6,7 @@
 # version.
 #
 # This program will take a df of user_id, review_contents and add another column
-# containing the parse tree features as a Spacy.Doc
+# containing the parse tree features as a Doc
 #
 # TODO: Future Work: this is 'trivially multi-threadable' using Python's Dask
 
@@ -42,7 +42,7 @@ class PathExtractor():
         self.nlp = spacy.load('en')
         self.nlp.add_pipe(BeneparComponent('benepar_en'))
 
-    def extract_doc_tree(self, document: 'String') -> 'Spacy.Doc':
+    def extract_doc_tree(self, document: 'String') -> 'Doc':
         doc = self.nlp(document)
         return doc
 

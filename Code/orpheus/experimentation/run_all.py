@@ -1,9 +1,7 @@
-# TODO: addme @blake
-# https://github.com/IDSIA/sacred/issues/416
-# https://github.com/Qwlouse/Binding/blob/master/run_evaluation.py
-
 from l0_100a_50d import ex
 
+#TODO: add workspace-level config class and store all features in it
+# read from that class here
 for feat_col in ['review_contents', 'pos_tags', 'nested_pos_bigrams', 'path_pos_bigrams']:
     for clf in ['svc', 'MultiNomNB']:
         for m_df in [.001, .003, .005, .01, .1]:

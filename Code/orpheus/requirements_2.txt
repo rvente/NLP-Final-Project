@@ -4,6 +4,7 @@ pandas
 icecream
 sklearn
 prettyprint
+typing
 sacred
 Mako
 xlrd
