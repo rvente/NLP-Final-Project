@@ -82,16 +82,16 @@ def path_getter(x: Span, length: 'int', origin: Span) -> SpaceDelimitedTokens:
 
     x_pos_tag = span_to_pos(x)
     if length == 0:
-      return x_pos_tag
+        return x_pos_tag
 
     if x_par is None:
-      return "ROOT"
-    
+        return "ROOT"
+
     if not x_children:
-      return "↓PAD"*max(length,1)
+        return "↓PAD"*max(length, 1)
 
     subsequent_nodes = [("↑", x_par)] + [("↓", child) for child in x_children]
-    non_origin = [(_,node) for _,node in subsequent_nodes if node != origin]
+    non_origin = [(_, node) for _, node in subsequent_nodes if node != origin]
 
     return " ".join(x_pos_tag+l+path_getter(x_prime, length-1, x) for l, x_prime in non_origin)
 
@@ -99,17 +99,19 @@ def path_getter(x: Span, length: 'int', origin: Span) -> SpaceDelimitedTokens:
 if __name__ == '__main__':
     """for unit tests, we import a small mock dataset of the form
     pd.Dataframe['user_id','review_contents','documents']
-    where 'documents' is a spacy Doc"""
+    where df['documents'] is a spacy Doc"""
 
     DATASET_BASENAME = 'data/small'
     DATASET = f'{DATASET_BASENAME}_with_doc.pkl'
     df = pd.read_pickle(DATASET)
-    doc: 'Doc' = df['documents'][0]
-    l2_getter = lambda x: path_getter(x,2,x)
+    doc: 'Doc' = df['documents'][1]
+    def l2_getter(x):
+      return path_getter(x, 3, x)
     # for getter in [span_to_pos, l1_path_getter, l2_getter]:
     #     print(getter)
     #     print(doc_visitor(doc, getter))
 
-    # print(doc)
-    print(doc_visitor(doc, l2_getter))
-    print(Counter(doc_visitor(doc, l2_getter).split()))
+    l2pos = doc_visitor(doc, l2_getter)
+    print(l2pos)
+    l2ctr = Counter(l2pos.split())
+    print(l2ctr, len(l2pos.split()))
