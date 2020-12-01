@@ -76,28 +76,37 @@ def l1_path_getter(x: Span) -> SpaceDelimitedTokens:
 
 def path_getter(x: Span, length: 'int') -> SpaceDelimitedTokens:
     """returns all POS paths of given from node x as strings"""
-    x_pos_tag = span_to_pos(x)
     x_par = x._.parent
-    par_pos_tag = span_to_pos(x_par) if x_par is not None else "ROOT"
-    upper_bigram = f"{x_pos_tag}↑{par_pos_tag}"
-
     x_children = x._.children
-    subsequent_nodes = [x_par] + x_children
 
-    # return (pos_nested_bigram_getter(x) + " " + upper_bigram).strip()
-    # return " ".join(f"{x_pos_tag}↓{span_to_pos(child)}" for child in x_children)
-    return
+    x_pos_tag = span_to_pos(x)
+    if length == 0:
+      return x_pos_tag
+
+    if x_par is None:
+      return "ROOT"
+    
+    if not x_children:
+      return "↓PAD"*max(length,1)
+
+    subsequent_nodes = [("↑", x_par)] + [("↓", child) for child in x_children]
+
+    return " ".join(x_pos_tag+l+path_getter(x_prime, length-1) for l, x_prime in subsequent_nodes)
 
 
 if __name__ == '__main__':
-    """ for unit tests, we import a small mock dataset of the form
+    """for unit tests, we import a small mock dataset of the form
     pd.Dataframe['user_id','review_contents','documents']
-    where 'documents' is a 'Doc """
+    where 'documents' is a spacy Doc"""
 
     DATASET_BASENAME = 'data/small'
     DATASET = f'{DATASET_BASENAME}_with_doc.pkl'
     df = pd.read_pickle(DATASET)
     doc: 'Doc' = df['documents'][0]
-    for getter in [span_to_pos, l1_path_getter, pos_nested_bigram_getter]:
+    l2_getter = lambda x: path_getter(x,2)
+    for getter in [span_to_pos, l1_path_getter, l2_getter]:
         print(getter)
         print(doc_visitor(doc, getter))
+
+    # print(doc)
+    print(doc_visitor(doc, l2_getter))
