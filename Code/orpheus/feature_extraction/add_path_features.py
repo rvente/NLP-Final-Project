@@ -30,7 +30,8 @@ if __name__ == "__main__":
         df = pd.read_pickle(DATASET)
         print("read done")
 
-        def doc_to_pos(doc): return doc_visitor(doc, span_to_pos)
+        def doc_to_pos(doc):
+          return doc_visitor(doc, span_to_pos)
 
         def doc_to_pos_bigram(doc):
             return doc_visitor(doc, pos_nested_bigram_getter)
@@ -40,8 +41,11 @@ if __name__ == "__main__":
 
         # mutate to add pos_tag unigrams
         df['pos_tags'] = df['documents'].progress_apply(doc_to_pos)
-        # mutate to add pos_tag unigrams
+
+        # mutate to add pos_tag nested bigrams
         df['nested_pos_bigrams'] = df['documents'].progress_apply(doc_to_pos_bigram)
+
+        # mutate to add pos_tag paths of length 1
         df['path_pos_bigrams'] = df['documents'].progress_apply(doc_to_l1_paths)
         df.drop(columns=['documents'], inplace=True)
         print(df)
@@ -49,4 +53,4 @@ if __name__ == "__main__":
 
     except Exception as e:
         print(e)
-    pass
+        pass
