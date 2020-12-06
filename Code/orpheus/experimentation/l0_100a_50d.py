@@ -55,7 +55,7 @@ def load_data(filename, min_doc_freq, feature_column, name):
 
 
 @ex.command
-def log_stats(_log, clf, X_test, y_test, name, params):
+def log_stats(_log, clf, X_test, y_test, name, params={}):
     y_pred = clf.predict(X_test)
     accuracy = accuracy_score(y_test, y_pred)
     confusion = confusion_matrix(y_test, y_pred)
@@ -90,64 +90,28 @@ def MultiNomNB(_log, name):
     X_train, X_test, y_train, y_test = load_data()
     clf = MultinomialNB(alpha=.01)
     clf.fit(X_train, y_train)
-    y_pred = clf.predict(X_test)
-    accuracy = accuracy_score(y_test, y_pred)
-    confusion = confusion_matrix(y_test, y_pred)
-    f1 = f1_score(y_test, y_pred, average="weighted")
-    ex.log_scalar("test.accuracy", accuracy)
-    ex.log_scalar("test.confusion", str(confusion))
-    ex.log_scalar("test.f1_score", f1)
-    _log.info(f"{name}")
-    _log.info(f"acc={accuracy}, f1={f1}")
-    return accuracy
+    return log_stats(_log, clf, X_test, y_test, name)
 
 @ex.command
 def RandForest(_log, name):
     X_train, X_test, y_train, y_test = load_data()
     clf = RandomForestClassifier()
     clf.fit(X_train, y_train)
-    y_pred = clf.predict(X_test)
-    accuracy = accuracy_score(y_test, y_pred)
-    confusion = confusion_matrix(y_test, y_pred)
-    f1 = f1_score(y_test, y_pred, average="weighted")
-    ex.log_scalar("test.accuracy", accuracy)
-    ex.log_scalar("test.confusion", str(confusion))
-    ex.log_scalar("test.f1_score", f1)
-    _log.info(f"{name}")
-    _log.info(f"acc={accuracy}, f1={f1}")
-    return accuracy
+    return log_stats(_log, clf, X_test, y_test, name)
 
 @ex.command
 def AdaBoost(_log, name):
     X_train, X_test, y_train, y_test = load_data()
     clf = AdaBoostClassifier()
     clf.fit(X_train, y_train)
-    y_pred = clf.predict(X_test)
-    accuracy = accuracy_score(y_test, y_pred)
-    confusion = confusion_matrix(y_test, y_pred)
-    f1 = f1_score(y_test, y_pred, average="weighted")
-    ex.log_scalar("test.accuracy", accuracy)
-    ex.log_scalar("test.confusion", str(confusion))
-    ex.log_scalar("test.f1_score", f1)
-    _log.info(f"{name}")
-    _log.info(f"acc={accuracy}, f1={f1}")
-    return accuracy
+    return log_stats(_log, clf, X_test, y_test, name)
 
 @ex.command
 def MLP(_log, name):
     X_train, X_test, y_train, y_test = load_data()
     clf = MLPClassifier( hidden_layer_sizes=(50, 2), activation='tanh', learning_rate='adaptive', max_iter=500)
     clf.fit(X_train, y_train)
-    y_pred = clf.predict(X_test)
-    accuracy = accuracy_score(y_test, y_pred)
-    confusion = confusion_matrix(y_test, y_pred)
-    f1 = f1_score(y_test, y_pred, average="weighted")
-    ex.log_scalar("test.accuracy", accuracy)
-    ex.log_scalar("test.confusion", str(confusion))
-    ex.log_scalar("test.f1_score", f1)
-    _log.info(f"{name}")
-    _log.info(f"acc={accuracy}, f1={f1}")
-    return accuracy
+    return log_stats(_log, clf, X_test, y_test, name)
 
 
 @ex.command
@@ -155,13 +119,4 @@ def LogReg(_log, name):
     X_train, X_test, y_train, y_test = load_data()
     clf = LogisticRegression()
     clf.fit(X_train, y_train)
-    y_pred = clf.predict(X_test)
-    accuracy = accuracy_score(y_test, y_pred)
-    confusion = confusion_matrix(y_test, y_pred)
-    f1 = f1_score(y_test, y_pred, average="weighted")
-    ex.log_scalar("test.accuracy", accuracy)
-    ex.log_scalar("test.confusion", str(confusion))
-    ex.log_scalar("test.f1_score", f1)
-    _log.info(f"{name}")
-    _log.info(f"acc={accuracy}, f1={f1}")
-    return accuracy
+    return log_stats(_log, clf, X_test, y_test, name)

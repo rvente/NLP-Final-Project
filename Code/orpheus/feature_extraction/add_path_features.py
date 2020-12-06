@@ -45,20 +45,19 @@ if __name__ == "__main__":
             def l2_getter(x):
                 return path_getter(x, 2, x)
             return doc_visitor(doc, l2_getter)
+        docs = df['documents']
 
-        df['path_pos_trigrams'] = df['documents'].progress_apply(
-            doc_to_l2_paths)
+        df['path_pos_trigrams'] = docs.progress_apply(doc_to_l2_paths)
 
         # mutate to add pos_tag unigrams
-        df['pos_tags'] = df['documents'].progress_apply(doc_to_pos)
+        df['pos_tags'] = docs.progress_apply(doc_to_pos)
 
         # mutate to add pos_tag nested bigrams
-        df['nested_pos_bigrams'] = df['documents'].progress_apply(
-            doc_to_pos_bigram)
+        df['nested_pos_bigrams'] = docs.progress_apply(doc_to_pos_bigram)
 
         # mutate to add pos_tag paths of length 1 and 2
-        df['path_pos_bigrams'] = df['documents'].progress_apply(
-            doc_to_l1_paths)
+        df['path_pos_bigrams'] = docs.progress_apply(doc_to_l1_paths)
+
         df.drop(columns=['documents'], inplace=True)
         print(df)
         df.to_pickle(DATASET_OUTNAME)
