@@ -1,6 +1,14 @@
+# Overview
+
+
+1. Install dependencies: <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/INSTALLING.md">INSTALLING.md</a>
+2. Process dataset: <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/data/DataFuncs.py">DataFuncs.py</a>
+3. Extract Features: <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/feature_extraction/add_parse_tree.py">add_parse_tree.py</a>
+4. Run experiments.  <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/experimentation/run_all.py">run_all.py</a>
+
 <h1>Directory Tree</h1><p>
 <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus">https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus</a><br>
-├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/analysis/">analysis</a> We use these notebooks for analyis, reading and writing to /results .<br>
+├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/analysis/">analysis</a> Use these notebooks for analysis, reading and writing to /results .<br>
 │   ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/analysis/analysis.ipynb">analysis.ipynb</a><br>
 │   ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/analysis/chart_nb_x_alpha.ipynb">chart_nb_x_alpha.ipynb</a><br>
 │   ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/analysis/chart_prev_seen.ipynb">chart_prev_seen.ipynb</a><br>
@@ -9,7 +17,7 @@
 │   ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/analysis/Presentation.ipynb">Presentation.ipynb</a><br>
 │   ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/analysis/Presentation-NB.ipynb">Presentation-NB.ipynb</a><br>
 │   └── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/analysis/Presentation-SVC.ipynb">Presentation-SVC.ipynb</a><br>
-├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/data/">data</a> Data and feature extraction is stored here.<br>
+├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/data/">data</a> Store data and feature extraction output here.<br>
 │   ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/data/1000A30D__doc%2Bpos.pkl">1000A30D__doc+pos.pkl</a><br>
 │   ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/data/1000A30D_with_doc.pkl">1000A30D_with_doc.pkl</a><br>
 │   ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/data/100A50D.csv">100A50D.csv</a><br>
@@ -26,10 +34,10 @@
 │   ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/data/small__doc%2Bpos.pkl">small__doc+pos.pkl</a><br>
 │   ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/data/small_with_doc.pkl">small_with_doc.pkl</a><br>
 │   └── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/data/small.xlsx">small.xlsx</a><br>
-├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/experimentation/">experimentation</a> Configuring and running the machine learning models <br>
+├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/experimentation/">experimentation</a> Configure and run the machine learning models <br>
 │   ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/experimentation/l0_100a_50d.py">l0_100a_50d.py</a><br>
 │   ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/experimentation/__pycache__/">__pycache__</a><br>
-│   ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/experimentation/run_all.py">run_all.py</a><br>
+│   ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/experimentation/run_all.py">run_all.py</a> Outlines the most general combinations of hyper-parameters. <br>
 │   ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/experimentation/run_prev_seen.py">run_prev_seen.py</a><br>
 │   ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/experimentation/sandbox.py">sandbox.py</a><br>
 │   └── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/experimentation/svc.py">svc.py</a><br>
@@ -38,29 +46,24 @@
 │   ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/feature_extraction/add_path_features.py">add_path_features.py</a><br>
 │   ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/feature_extraction/instance_parser.py">instance_parser.py</a><br>
 │   └── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/feature_extraction/__pycache__/">__pycache__</a><br>
-├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/figures/">figures</a><br>
+├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/figures/">figures</a> Figures generated by the analysis scripts. <br>
 │   ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/figures/nb_x_alpha.pdf">nb_x_alpha.pdf</a><br>
 │   ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/figures/nb_x_alpha.svg">nb_x_alpha.svg</a><br>
 │   ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/figures/nb_x_prev_seen.pdf">nb_x_prev_seen.pdf</a><br>
 │   └── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/figures/svm_x_prev_seen.pdf">svm_x_prev_seen.pdf</a><br>
 ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/INSTALLING.md">INSTALLING.md</a> How to install and configure <br>
-├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/logs/">logs</a> The filesystem database of experiments<br>
+├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/logs/">logs</a> gitignored: The filesystem database of experiments<br>
 │   ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/logs/1/">1</a><br>
 │   ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/logs/10/">10</a><br>
 │   ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/logs/100/">100</a><br>
 │   ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/logs/101/">101</a><br>
-│   ├── ...
+│   ├── ... <br>
 │   └── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/logs/_sources/">_sources</a><br>
-├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/prev_seen_logs/">prev_seen_logs</a><br>
+├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/prev_seen_logs/">prev_seen_logs</a> gitignored: another database<br>
 │   ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/prev_seen_logs/1/">1</a><br>
 │   ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/prev_seen_logs/10/">10</a><br>
 │   ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/prev_seen_logs/11/">11</a><br>
-│   ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/prev_seen_logs/12/">12</a><br>
-│   ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/prev_seen_logs/13/">13</a><br>
-│   ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/prev_seen_logs/14/">14</a><br>
-│   ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/prev_seen_logs/15/">15</a><br>
-│   ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/prev_seen_logs/16/">16</a><br>
-│   ├── ...
+│   ├── ... <br>
 │   └── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/prev_seen_logs/_sources/">_sources</a><br>
 ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/README.md">README.md</a><br>
 ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/requirements_2.txt">requirements_2.txt</a><br>
