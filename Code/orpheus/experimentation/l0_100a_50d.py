@@ -5,8 +5,8 @@
 # Foundation, either version 3 of the License, or (at your option) any later
 # version.
 #
-# This program defines the experiment of this research project. run_all.py
-# actually executes it.
+# This program defines the experiments of this research project. Other files in this
+# directory actually execute it.
 
 import pandas as pd
 from sacred import Experiment
@@ -22,23 +22,28 @@ from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier, Gradien
 from sklearn.neural_network import MLPClassifier
 from sklearn.linear_model import LogisticRegression
 
-ex = Experiment('100a_50d_l0')
+ex = Experiment('orpheus')
 ex.observers.append(FileStorageObserver('logs'))
 
-
+# initial configuration: overridden by config_updates={...} invocation
 @ex.config
 def cfg():
     dataset = {
         'name': '100 author 50 docs each pos_tags',
         'filename': './data/100A50D__doc+pos.pkl',
         'min_doc_freq': 0.005,
-        'feature_column': 'review_contents'
+        'feature_column': 'review_contents',
+        'test_set_prop' : .03
+    }
+    naivebayes = {
+        'name': 'MultinomialNB',
+        'alpha': .01
     }
     name = 'support vector classifier'
 
-
+# shared dataset component
 @ex.capture(prefix='dataset')
-def load_data(filename, min_doc_freq, feature_column, name):
+def load_data(filename, min_doc_freq, feature_column, name, test_set_prop):
     df = pd.read_pickle(filename)
 
     vectorizer = TfidfVectorizer(
@@ -48,7 +53,7 @@ def load_data(filename, min_doc_freq, feature_column, name):
     vectors = vectorizer.fit_transform(experimental_feature)
     print(df[feature_column].head(), df.shape, sep="\n")
     X_train, X_test, y_train, y_test = train_test_split(
-        vectors, authors, test_size=0.3, random_state=42)
+        vectors, authors, test_size=test_set_prop, random_state=42, stratify=authors)
     print(X_train.shape)
     return X_train, X_test, y_train, y_test
 
@@ -71,7 +76,7 @@ def log_stats(_log, clf, X_test, y_test, name, params={}):
 @ex.command
 def svc(_log, name):
     X_train, X_test, y_train, y_test = load_data()
-    mx_iter = 10
+    mx_iter = 10000
     params = {'max_iter' : mx_iter , 'verbose':0}
     clf = LinearSVC(**params)
     clf.fit(X_train, y_train)
@@ -86,11 +91,13 @@ def kernelsvc(_log, name):
     return log_stats(_log, clf, X_test, y_test, name, params)
 
 @ex.command
-def MultiNomNB(_log, name):
+@ex.capture(prefix='naivebayes')
+def MultiNomNB(_log, name, alpha=.01):
     X_train, X_test, y_train, y_test = load_data()
-    clf = MultinomialNB(alpha=.01)
+    params = {'alpha': alpha}
+    clf = MultinomialNB(**params)
     clf.fit(X_train, y_train)
-    return log_stats(_log, clf, X_test, y_test, name)
+    return log_stats(_log, clf, X_test, y_test, name, params)
 
 @ex.command
 def RandForest(_log, name):

@@ -1,6 +1,5 @@
+# sandbox for experimenting with the kernel SVC
 from l0_100a_50d import ex
-
-# add the Ingredient while creating the experiment
 
 for feat_col in ['path_pos_bigrams','path_pos_trigrams']:
     for clf in ['kernelsvc']:
