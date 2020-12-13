@@ -1,0 +1,15 @@
+{
+  "dataset": {
+    "feature_column": "path_pos_bigrams",
+    "filename": "./data/100A50D__doc+pos.pkl",
+    "min_doc_freq": 0.003,
+    "name": "100 author 50 docs each pos_tags",
+    "test_set_prop": 0.6
+  },
+  "naivebayes": {
+    "alpha": 0.01,
+    "name": "MultinomialNB"
+  },
+  "name": "svc__min_df_0.003_path_pos_bigrams",
+  "seed": 326096112
+}

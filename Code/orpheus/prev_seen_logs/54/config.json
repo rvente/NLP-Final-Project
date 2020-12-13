@@ -1,0 +1,15 @@
+{
+  "dataset": {
+    "feature_column": "review_contents",
+    "filename": "./data/100A50D__doc+pos.pkl",
+    "min_doc_freq": 0.003,
+    "name": "100 author 50 docs each pos_tags",
+    "test_set_prop": 0.9
+  },
+  "naivebayes": {
+    "alpha": 0.01,
+    "name": "MultinomialNB"
+  },
+  "name": "MultiNomNB__min_df_0.003_review_contents",
+  "seed": 379081123
+}

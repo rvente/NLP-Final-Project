@@ -1,0 +1,82 @@
+{
+  "artifacts": [],
+  "command": "naivebayes.MultiNomNB",
+  "experiment": {
+    "base_dir": "/home/vente/research/NLP-Final-Project/Code/orpheus/experimentation",
+    "dependencies": [
+      "numpy==1.19.4",
+      "pandas==1.1.4",
+      "sacred==0.8.1",
+      "scikit-learn==0.23.2"
+    ],
+    "mainfile": "l0_100a_50d.py",
+    "name": "orpheus/prev_seen",
+    "repositories": [
+      {
+        "commit": "7c09fa30256eeed69f18ee1c6b8c9df338db90e2",
+        "dirty": true,
+        "url": "git@github.com:rvente/NLP-Final-Project.git"
+      }
+    ],
+    "sources": [
+      [
+        "l0_100a_50d.py",
+        "_sources/l0_100a_50d_4bd090a914d0a50c97583619a11622e4.py"
+      ]
+    ]
+  },
+  "heartbeat": "2020-12-11T23:19:22.855222",
+  "host": {
+    "ENV": {},
+    "cpu": "Intel(R) Core(TM) i5-4690K CPU @ 3.50GHz",
+    "gpus": {
+      "driver_version": "455.38",
+      "gpus": [
+        {
+          "model": "GeForce GTX 960",
+          "persistence_mode": false,
+          "total_memory": 1999
+        }
+      ]
+    },
+    "hostname": "osiris",
+    "os": [
+      "Linux",
+      "Linux-5.8.0-7630-generic-x86_64-with-Pop-20.04-focal"
+    ],
+    "python_version": "3.7.9"
+  },
+  "meta": {
+    "command": "MultiNomNB",
+    "options": {
+      "--beat-interval": null,
+      "--capture": null,
+      "--comment": null,
+      "--debug": false,
+      "--enforce_clean": false,
+      "--file_storage": null,
+      "--force": false,
+      "--help": false,
+      "--loglevel": null,
+      "--mongo_db": null,
+      "--name": null,
+      "--pdb": false,
+      "--print-config": false,
+      "--priority": null,
+      "--queue": false,
+      "--s3": null,
+      "--sql": null,
+      "--tiny_db": null,
+      "--unobserved": false
+    }
+  },
+  "resources": [],
+  "result": {
+    "dtype": "float64",
+    "py/object": "numpy.float64",
+    "value": 0.676
+  },
+  "start_time": "2020-12-11T23:19:07.665818",
+  "status": "COMPLETED",
+  "stop_time": "2020-12-11T23:19:22.853747"
+}
