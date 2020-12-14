@@ -1,6 +1,5 @@
 # Overview
 
-
 1. Install dependencies: <a href="https://github.com/rvente/NLP-Final-Project/blob/release/Code/orpheus/INSTALLING.md">INSTALLING.md</a>
 2. Process dataset: <a href="https://github.com/rvente/NLP-Final-Project/blob/release/Code/orpheus/data/DataFuncs.py">DataFuncs.py</a>
 3. Extract Features: <a href="https://github.com/rvente/NLP-Final-Project/blob/release/Code/orpheus/feature_extraction/add_parse_tree.py">add_parse_tree.py</a>
@@ -46,13 +45,13 @@
 │   ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/release/Code/orpheus/figures/nb_x_prev_seen.pdf">nb_x_prev_seen.pdf</a><br>
 │   └── <a href="https://github.com/rvente/NLP-Final-Project/blob/release/Code/orpheus/figures/svm_x_prev_seen.pdf">svm_x_prev_seen.pdf</a><br>
 ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/release/Code/orpheus/INSTALLING.md">INSTALLING.md</a> How to install and configure <br>
-├── <pre>logs</pre> gitignored: The filesystem database of experiments<br>
+├── <code>logs</code> gitignored: The filesystem database of experiments<br>
 │   ├── 1<br>
 │   ├── 10<br>
 │   ├── 100<br>
 │   ├── 101<br>
 │   ├── ... <br>
-│   └── <pre>&lowbar;sources</pre> <br>
+│   └── <code>&lowbar;sources</code> <br>
 ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/prev_seen_logs/">prev_seen_logs</a> not gitignored: view sample logs here on another branch <br>
 │   ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/prev_seen_logs/1/">1</a><br>
 │   ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/prev_seen_logs/10/">10</a><br>
@@ -71,5 +70,4 @@
 │   └── <a href="https://github.com/rvente/NLP-Final-Project/blob/release/Code/orpheus/results/svm_x_prev_seen.pkl">svm_x_prev_seen.pkl</a><br>
 ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/release/Code/orpheus/software_citations.bib">software_citations.bib</a><br>
 └── virtualenv  We recommend a virtual environment for installing packages. <br>
-<br><br>
 </p>
