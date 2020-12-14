@@ -46,13 +46,13 @@
 │   ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/release/Code/orpheus/figures/nb_x_prev_seen.pdf">nb_x_prev_seen.pdf</a><br>
 │   └── <a href="https://github.com/rvente/NLP-Final-Project/blob/release/Code/orpheus/figures/svm_x_prev_seen.pdf">svm_x_prev_seen.pdf</a><br>
 ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/release/Code/orpheus/INSTALLING.md">INSTALLING.md</a> How to install and configure <br>
-├── <a href="https://github.com/rvente/NLP-Final-Project/blob/release/Code/orpheus/logs/">logs</a> gitignored: The filesystem database of experiments<br>
-│   ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/release/Code/orpheus/logs/1/">1</a><br>
-│   ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/release/Code/orpheus/logs/10/">10</a><br>
-│   ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/release/Code/orpheus/logs/100/">100</a><br>
-│   ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/release/Code/orpheus/logs/101/">101</a><br>
+├── <pre>logs</pre> gitignored: The filesystem database of experiments<br>
+│   ├── 1<br>
+│   ├── 10<br>
+│   ├── 100<br>
+│   ├── 101<br>
 │   ├── ... <br>
-│   └── <a href="https://github.com/rvente/NLP-Final-Project/blob/release/Code/orpheus/logs/_sources/">_sources</a><br>
+│   └── <pre>&lowbar;sources</pre> <br>
 ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/prev_seen_logs/">prev_seen_logs</a> not gitignored: view sample logs here on another branch <br>
 │   ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/prev_seen_logs/1/">1</a><br>
 │   ├── <a href="https://github.com/rvente/NLP-Final-Project/blob/main/Code/orpheus/prev_seen_logs/10/">10</a><br>
