@@ -1,4 +1,4 @@
-## Requirmetnt for Computing Dataset
+## Requirements for Computing Dataset
 
 minimum ~40 GB RAM, has never been computed with less than 49 GB
 
