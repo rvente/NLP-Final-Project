@@ -2,8 +2,10 @@
 
 1. Install dependencies: <a href="https://github.com/rvente/NLP-Final-Project/blob/release/Code/orpheus/INSTALLING.md">INSTALLING.md</a>
 2. Process dataset: <a href="https://github.com/rvente/NLP-Final-Project/blob/release/Code/orpheus/data/DataFuncs.py">DataFuncs.py</a>
-3. Extract Features: <a href="https://github.com/rvente/NLP-Final-Project/blob/release/Code/orpheus/feature_extraction/add_parse_tree.py">add_parse_tree.py</a>
-4. Run experiments.  <a href="https://github.com/rvente/NLP-Final-Project/blob/release/Code/orpheus/experimentation/run_all.py">run_all.py</a>
+3. Extract Features:
+   * Extract parse trees <a href="https://github.com/rvente/NLP-Final-Project/blob/release/Code/orpheus/feature_extraction/add_parse_tree.py">add_parse_tree.py</a>
+   * Extract parse tree features <a href="https://github.com/rvente/NLP-Final-Project/blob/release/Code/orpheus/feature_extraction/add_path_features.py">add_path_features.py</a> with utility functions defined in <a href="https://github.com/rvente/NLP-Final-Project/blob/release/Code/orpheus/feature_extraction/instance_parser.py">instance_parser.py</a>.
+4. Run example experiments.  <a href="https://github.com/rvente/NLP-Final-Project/blob/release/Code/orpheus/experimentation/run_all.py">run_all.py</a>
 
 <h1>Directory Tree</h1><p>
 <a href="https://github.com/rvente/NLP-Final-Project/blob/release/Code/orpheus">https://github.com/rvente/NLP-Final-Project/blob/release/Code/orpheus</a><br>

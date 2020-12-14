@@ -6,7 +6,7 @@
 # version.
 #
 # This program stores utilities to convert tree representations to string
-# representations.
+# representations. Implements visitor pattern.
 
 from code import InteractiveConsole
 from pprint import pformat, pprint
@@ -15,17 +15,17 @@ from collections import Counter
 
 import pandas as pd
 import spacy
-import tensorflow as tf
 from benepar.spacy_plugin import BeneparComponent
 
-tf.gfile = tf.io.gfile
+DATASET_BASENAME = 'data/small'
+DATASET = f'{DATASET_BASENAME}_with_doc.pkl'
 
-# TODO: put these in a central location
+# TODO: put these in a central CONSTANTS file 
 SpaceDelimitedTokens = str
-Span = spacy.tokens.Span
-Doc = spacy.tokens.Doc
+Span = spacy.tokens.Span # span is a sentence
+Doc = spacy.tokens.Doc # Doc is entire document partitioned into sentences
 
-
+# NOTE: Superseded by doc_visitor(doc, span_to_pos) 
 def doc_to_pos_string(doc: Doc) -> SpaceDelimitedTokens:
     """traverse, get unigrams, flatten into space separated pos_tags"""
 
@@ -46,6 +46,7 @@ def span_visitor(span: Span, fn: Callable) -> 'Generator[Span, Callable, None]':
         yield from span_visitor(child, fn)
 
 
+# NOTE: Superseded, kept for compatability
 def unigram_getter(x: Span) -> str:
     """get POS unigrams aka POS single pos label"""
     return span_to_pos(x)
@@ -59,7 +60,6 @@ def span_to_pos(x: Span) -> str:
 
 def pos_nested_bigram_getter(x: Span) -> SpaceDelimitedTokens:
     """returns all nested bigrams from x as space-separated tokens"""
-    # leaf nodes have no labels?? extract them from the string.
     x_pos_tag = span_to_pos(x)
     x_children = x._.children
     return " ".join(f"{x_pos_tag}↓{span_to_pos(child)}" for child in x_children)
@@ -67,7 +67,6 @@ def pos_nested_bigram_getter(x: Span) -> SpaceDelimitedTokens:
 
 def l1_path_getter(x: Span) -> SpaceDelimitedTokens:
     """returns all POS paths of length 1 from node x as strings"""
-    # leaf nodes have no labels?? extract them from the string.
     x_pos_tag = span_to_pos(x)
     x_par = x._.parent
     par_pos_tag = span_to_pos(x_par) if x_par is not None else "ROOT"
@@ -97,12 +96,10 @@ def path_getter(x: Span, length: 'int', origin: Span) -> SpaceDelimitedTokens:
 
 
 if __name__ == '__main__':
-    """for unit tests, we import a small mock dataset of the form
+    """for usage examples, we import a small mock dataset of the form
     pd.Dataframe['user_id','review_contents','documents']
-    where df['documents'] is a spacy Doc"""
+    where df['documents'] is a pd.Series of spacy Docs"""
 
-    DATASET_BASENAME = 'data/small'
-    DATASET = f'{DATASET_BASENAME}_with_doc.pkl'
     df = pd.read_pickle(DATASET)
     doc: 'Doc' = df['documents'][1]
     def l2_getter(x):
